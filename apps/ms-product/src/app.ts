@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/health',   (req, res) => res.send({ message: 'OK' }));
+app.get('/api/health', (req, res) => res.send({ message: 'ms-product OK' }));
 
 app.use([errorHandler, routeNotFoundHandler]);
 

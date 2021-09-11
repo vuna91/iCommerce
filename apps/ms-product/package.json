@@ -1,0 +1,43 @@
+{
+  "name": "ms-product",
+  "version": "1.0.0",
+  "repository": "https://github.com/vuna91/iCommerce",
+  "author": "Vu Nguyen <vuna91@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
+    "build": "rimraf dist && tsc",
+    "start": "yarn run build && cross-env NODE_ENV=production node dist/index.js",
+    "format": "prettier . --write",
+    "lint": "eslint . --fix"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@types/config": "^0.0.39",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.9.1",
+    "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "lint-staged": "^11.1.2",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.4.0",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "winston": "^3.3.3"
+  }
+}
