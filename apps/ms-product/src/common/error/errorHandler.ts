@@ -32,5 +32,7 @@ export function routeNotFoundHandler(
   res: express.Response,
   _next: express.NextFunction // eslint-disable-line
 ): void {
-  res.status(404).json({ error: 'The requested resource does not exist.' });
+  res
+    .status(404)
+    .json({ error: { message: 'The requested resource does not exist.' } });
 }
