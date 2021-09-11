@@ -5,7 +5,7 @@
   "author": "Vu Nguyen <vuna91@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
+    "dev": "cross-env NODE_ENV=dev nodemon src/index.ts",
     "build": "rimraf dist && tsc",
     "start": "yarn run build && cross-env NODE_ENV=production node dist/index.js",
     "format": "prettier . --write",
@@ -38,6 +38,8 @@
     "config": "^3.3.6",
     "express": "^4.17.1",
     "express-joi-validation": "^5.0.0",
+    "inversify": "^5.1.1",
+    "reflect-metadata": "^0.1.13",
     "winston": "^3.3.3"
   }
 }
