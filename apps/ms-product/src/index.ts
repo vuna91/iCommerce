@@ -1,8 +1,7 @@
-import 'reflect-metadata';
 import config from 'config';
 import logger from './common/logger';
+import app from './app';
 
-import { app } from './app';
 import { connectDB } from './common/mongo';
 
 const initialize = async () => {

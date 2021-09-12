@@ -9,28 +9,28 @@ import {
 } from './product.type';
 
 export interface IProductRepository {
-  retrieve(filer: ProductFilter, sortBy: ProductSortBy): Promise<Product[]>;
+  retrieve(filter: ProductFilter, sortBy: ProductSortBy): Promise<Product[]>;
   create(inputData: ProductCreation): Promise<Product>;
 }
 
 @injectable()
 export class ProductRepository implements IProductRepository {
   public async retrieve(
-    filer: ProductFilter,
+    filter: ProductFilter,
     sortBy: ProductSortBy
   ): Promise<Product[]> {
     const conditions: FilterQuery<ProductDocument> = {};
-    if (filer.name) {
-      conditions.name = new RegExp(filer.name, 'i');
+    if (filter.name) {
+      conditions.name = new RegExp(filter.name, 'i');
     }
-    if (filer.price) {
-      conditions.price = filer.price;
+    if (filter.price) {
+      conditions.price = filter.price;
     }
-    if (filer.brand) {
-      conditions.brand = filer.brand;
+    if (filter.brand) {
+      conditions.brand = filter.brand;
     }
-    if (filer.color) {
-      conditions.color = filer.color;
+    if (filter.color) {
+      conditions.color = filter.color;
     }
     const query = ProductModel.find(conditions);
 

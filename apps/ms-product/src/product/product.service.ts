@@ -22,10 +22,10 @@ export class ProductService implements IProductService {
   ) {}
 
   public async retrieve(
-    filer: ProductFilter,
+    filter: ProductFilter,
     sortBy: ProductSortBy
   ): Promise<Product[]> {
-    return await this.productRepository.retrieve(filer, sortBy);
+    return await this.productRepository.retrieve(filter, sortBy);
   }
 
   public async create(inputData: ProductCreation): Promise<Product> {

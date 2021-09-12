@@ -26,5 +26,5 @@ export interface ProductFilter {
 
 export interface ProductSortBy {
   key: string;
-  value: 'asc' | 'desc';
+  value: 'asc' | 'desc' | '';
 }

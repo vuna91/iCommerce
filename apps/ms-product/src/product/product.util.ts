@@ -3,7 +3,7 @@ import { ProductSortBy } from './product.type';
 export const parseSortByQuery = (query: string): ProductSortBy => {
   const result: ProductSortBy = {
     key: '',
-    value: 'asc',
+    value: '',
   };
   const sortByChunks = query.split(':');
   if (
