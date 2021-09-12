@@ -1,5 +1,6 @@
 import config from 'config';
 import { connection, connect } from 'mongoose';
+import logger from './logger';
 
 export const connectDB = (): Promise<void> =>
   new Promise<void>((resolve, reject) => {
@@ -9,12 +10,13 @@ export const connectDB = (): Promise<void> =>
     const password: string = config.get('dbConfig.pass') || '';
 
     if (!dbName) {
-      return reject(`No dbName is provided`);
+      return reject('No dbName is provided');
     }
 
     connection.once('open', () => resolve());
 
     connection.on('error', err => {
+      logger.error('Error when connecting to database', err);
       reject(err);
     });
 
@@ -26,3 +28,7 @@ export const connectDB = (): Promise<void> =>
       },
     });
   });
+
+export function transformDocument(_doc: any, ret: { [key: string]: any }) {
+  delete ret._id;
+}

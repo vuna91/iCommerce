@@ -2,10 +2,15 @@ import TYPES from '../common/ioc/type';
 
 import { injectable, inject } from 'inversify';
 import { IProductRepository } from './product.repository';
-import { Product, ProductCreation } from './product.type';
+import {
+  Product,
+  ProductCreation,
+  ProductFilter,
+  ProductSortBy,
+} from './product.type';
 
 export interface IProductService {
-  retrieve(): Promise<Product[]>;
+  retrieve(filer: ProductFilter, sortBy: ProductSortBy): Promise<Product[]>;
   create(inputData: ProductCreation): Promise<Product>;
 }
 
@@ -16,8 +21,11 @@ export class ProductService implements IProductService {
     private productRepository: IProductRepository
   ) {}
 
-  public async retrieve(): Promise<Product[]> {
-    return await this.productRepository.retrieve();
+  public async retrieve(
+    filer: ProductFilter,
+    sortBy: ProductSortBy
+  ): Promise<Product[]> {
+    return await this.productRepository.retrieve(filer, sortBy);
   }
 
   public async create(inputData: ProductCreation): Promise<Product> {

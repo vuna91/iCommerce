@@ -1,16 +1,20 @@
 import { Schema, model, Document, Model } from 'mongoose';
+import { transformDocument } from '../common/mongo';
 import { Product } from './product.type';
 
 export interface ProductDocument extends Omit<Product, 'id'>, Document {}
 
-function transformDocument(_doc: any, ret: { [key: string]: any }) {
-  delete ret._id;
-}
-
 const productSchema = new Schema<ProductDocument>(
   {
-    name: String,
-    description: String,
+    name: { type: Schema.Types.String, required: true },
+    description: Schema.Types.String,
+    price: { type: Schema.Types.Number, required: true },
+    color: { type: Schema.Types.String, required: true },
+    brand: {
+      type: Schema.Types.String,
+      required: true,
+      ref: 'Brand',
+    },
   },
   {
     timestamps: {
