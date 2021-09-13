@@ -23,16 +23,15 @@ describe('product.service', () => {
       const productRepositoryMock = {
         retrieve: jest.fn().mockResolvedValueOnce([]),
       };
-      container.unbind(TYPES.IProductRepository);
       container
-        .bind(TYPES.IProductRepository)
+        .rebind(TYPES.IProductRepository)
         .toConstantValue(productRepositoryMock);
 
       // when
       const productService = container.get<IProductService>(
         TYPES.IProductService
       );
-      await productService.retrieve({}, { key: '', value: '' });
+      await productService.getProducts({}, { key: '', value: '' });
 
       // then
       expect(productRepositoryMock.retrieve).toBeCalledWith(

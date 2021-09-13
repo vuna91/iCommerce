@@ -10,7 +10,7 @@ import {
 } from './product.type';
 
 export interface IProductService {
-  retrieve(filer: ProductFilter, sortBy: ProductSortBy): Promise<Product[]>;
+  getProducts(filer: ProductFilter, sortBy: ProductSortBy): Promise<Product[]>;
   create(inputData: ProductCreation): Promise<Product>;
 }
 
@@ -21,7 +21,7 @@ export class ProductService implements IProductService {
     private productRepository: IProductRepository
   ) {}
 
-  public async retrieve(
+  public async getProducts(
     filter: ProductFilter,
     sortBy: ProductSortBy
   ): Promise<Product[]> {

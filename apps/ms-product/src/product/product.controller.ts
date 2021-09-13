@@ -40,7 +40,10 @@ export class ProductController implements RegistrableController {
             const sortBy: ProductSortBy = parseSortByQuery(
               req.query.sortBy || ''
             );
-            const products = await this.productService.retrieve(filer, sortBy);
+            const products = await this.productService.getProducts(
+              filer,
+              sortBy
+            );
             res.json({ data: products });
           }
         )

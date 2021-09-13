@@ -8,14 +8,15 @@ import {
   routeNotFoundHandler,
 } from '../common/error/errorHandler';
 
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+export const registerApp = (controllerName: symbol): express.Express => {
+  const app = express();
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
-const controllers: RegistrableController[] =
-  container.getAll<RegistrableController>(TYPES.Controller);
-controllers.forEach(controller => controller.register(app));
+  const controller: RegistrableController =
+    container.getNamed<RegistrableController>(TYPES.Controller, controllerName);
+  controller.register(app);
 
-app.use([errorHandler, routeNotFoundHandler]);
-
-export default app;
+  app.use([errorHandler, routeNotFoundHandler]);
+  return app;
+};
