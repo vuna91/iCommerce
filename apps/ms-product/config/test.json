@@ -1,7 +1,7 @@
 {
   "host": "localhost",
   "port": 3000,
-  "logLevel": "debug",
+  "logLevel": "info",
   "dbConfig": {
     "host": "mongodb:27017",
     "name": "ms-product",
