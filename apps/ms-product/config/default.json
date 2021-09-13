@@ -1,12 +1,15 @@
 {
   "host": "localhost",
   "port": 3000,
-  "logLevel": "info",
+  "logLevel": "debug",
   "dbConfig": {
     "host": "localhost:10001",
-    "name": "iCommerce",
+    "name": "ms-product",
     "url": "mongodb://localhost:10001/",
     "user": "root",
     "pass": "1234"
+  },
+  "services": {
+    "ms-activity": "http://localhost:3001"
   }
 }

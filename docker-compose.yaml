@@ -1,7 +1,8 @@
 version: "3.7"
 services:
-  mongodb_container:
+  mongodb:
     image: mongo:latest
+    container_name: mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 1234
@@ -9,6 +10,18 @@ services:
       - 10001:27017
     volumes:
       - mongodb_data_container:/data/db
+
+  ms-product:
+    build: ./apps/ms-product
+    image: ms-product_image
+    restart: always
+    container_name: ms-product
+    environment:
+      NODE_ENV: dev
+    ports:
+      - 10002:3000
+    depends_on:
+      - mongodb
 
 volumes:
   mongodb_data_container:

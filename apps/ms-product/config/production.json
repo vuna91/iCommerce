@@ -1,4 +1,15 @@
 {
+  "host": "localhost",
   "port": 3000,
-  "logLevel": "info"
+  "logLevel": "debug",
+  "dbConfig": {
+    "host": "mongodb:27017",
+    "name": "ms-product",
+    "url": "mongodb://mongodb:27017/",
+    "user": "root",
+    "pass": "1234"
+  },
+  "services": {
+    "ms-activity": "http://ms-activity:3001"
+  }
 }

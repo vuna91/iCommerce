@@ -8,12 +8,12 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev nodemon src/index.ts",
     "build": "rimraf dist && tsc",
-    "start": "yarn run build && cross-env NODE_ENV=production node dist/index.js",
+    "migrate:up": "cross-env NODE_ENV=test migrate-mongo up",
+    "start": "yarn run migrate:up && cross-env NODE_ENV=test node dist/index.js",
     "format": "prettier . --write",
     "lint": "eslint . --fix",
-    "test": "cross-env NODE_ENV=test jest --verbose",
-    "test:cov": "cross-env NODE_ENV=test jest --coverage",
-    "migrate:up": "cross-env NODE_ENV=dev migrate-mongo up"
+    "test": "cross-env NODE_ENV=dev jest --verbose",
+    "test:cov": "cross-env NODE_ENV=dev jest --coverage"
   },
   "lint-staged": {
     "src/**/*.ts": [
