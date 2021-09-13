@@ -3,6 +3,7 @@
   "port": 3000,
   "logLevel": "info",
   "dbConfig": {
+    "host": "localhost:10001",
     "name": "iCommerce",
     "url": "mongodb://localhost:10001/",
     "user": "root",
