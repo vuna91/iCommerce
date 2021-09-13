@@ -4,7 +4,7 @@ import { injectable, inject } from 'inversify';
 import { Application, Request, Response } from 'express';
 import { RegistrableController } from './../common/ioc/registerable.controller';
 import { IProductService } from './product.service';
-import { requestWraper } from '../common/requestWraper';
+import { requestWrapper } from '../common/requestWrapper';
 import { createValidator, ValidatedRequest } from 'express-joi-validation';
 import {
   RetrieveProductRequestSchema,
@@ -26,7 +26,7 @@ export class ProductController implements RegistrableController {
       .route('/products')
       .get(
         validator.query(retrieveProductValidator),
-        requestWraper(
+        requestWrapper(
           async (
             req: ValidatedRequest<RetrieveProductRequestSchema>,
             res: Response
@@ -49,7 +49,7 @@ export class ProductController implements RegistrableController {
         )
       )
       .post(
-        requestWraper(async (req: Request, res: Response) => {
+        requestWrapper(async (req: Request, res: Response) => {
           const result = await this.productService.create(req.body);
           res.json({ result });
         })

@@ -1,0 +1,95 @@
+tags:
+  - name: Products
+    description: API for product requests
+paths:
+  /products:
+    get:
+      tags:
+        - Products
+      summary: Get list of products
+      description: Get list of products
+      produces: application/json
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Name of product
+        - in: query
+          name: price
+          schema:
+            type: number
+          description: Price of product
+        - in: query
+          name: color
+          schema:
+            type: string
+          description: Color of product
+        - in: query
+          name: brandId
+          schema:
+            type: string
+          description: Brand id of product
+        - in: query
+          name: sortBy
+          schema:
+            type: string
+          description: Sort order of list products
+          example: createdAt:asc or createdAt:desc
+      responses:
+        200:
+          description: List of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        500:
+          schema:
+            description: Internal Server Error
+            $ref: '#/definitions/InternalError'
+
+definitions:
+  Product:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 613cf99d3d33610b39961f87
+      name:
+        type: string
+        example: Apple iPhone 12 Pro Max 128GB
+      price:
+        type: number
+        example: 32000000
+      color:
+        type: string
+        example: black
+        allowEmpty: true
+      brand:
+        type: string
+        example: 613d7f4b5fda0b22afc268bb
+      createdAt:
+        type: date
+        example: 2021-09-11T18:46:53.961Z
+      updatedAt:
+        type: date
+        example: 2021-09-11T18:46:53.961Z
+  Brand:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 613d7f4b5fda0b22afc268bb
+      name:
+        type: string
+        example: Apple
+  InternalError:
+    type: object
+    properties:
+      message:
+        type: string
+  NotFoundError:
+    type: object
+    properties:
+      message:
+        type: string
