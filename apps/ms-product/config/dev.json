@@ -10,6 +10,6 @@
     "pass": "1234"
   },
   "services": {
-    "ms-activity": "http://localhost:3001"
+    "activity": "http://localhost:3001"
   }
 }

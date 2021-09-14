@@ -1,6 +1,7 @@
 import 'joi-extract-type';
 import Joi from '@hapi/joi';
-import { ContainerTypes, ValidatedRequestSchema } from 'express-joi-validation';
+import { ValidatedRequestSchema } from 'express-joi-validation';
+import { ContainerTypes } from '../common/containerType';
 
 export const activityCreationValidator = Joi.object({
   resourceId: Joi.string().optional(),

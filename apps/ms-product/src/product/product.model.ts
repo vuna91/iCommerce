@@ -34,6 +34,8 @@ const productSchema = new Schema<ProductDocument>(
   }
 );
 
+productSchema.index({ name: 'text', brand: 'text', price: -1 });
+
 export const ProductModel: Model<ProductDocument> = model<ProductDocument>(
   'Product',
   productSchema

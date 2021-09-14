@@ -6,6 +6,10 @@ import { RegistrableController } from './registerable.controller';
 import { ProductController } from './../../product/product.controller';
 import { IProductService, ProductService } from '../../product/product.service';
 import {
+  ActivityService,
+  IActivityService,
+} from '../../activity/activity.service';
+import {
   IProductRepository,
   ProductRepository,
 } from './../../product/product.repository';
@@ -17,7 +21,10 @@ import {
 const container = new Container();
 
 container.bind<RegistrableController>(TYPES.Controller).to(ProductController);
+
 container.bind<IProductService>(TYPES.IProductService).to(ProductService);
+container.bind<IActivityService>(TYPES.IActivityService).to(ActivityService);
+
 container
   .bind<IProductRepository>(TYPES.IProductRepository)
   .to(ProductRepository);

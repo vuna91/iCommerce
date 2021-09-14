@@ -12,6 +12,7 @@ import {
 } from './product.validator';
 import { ProductFilter, ProductSortBy } from './product.type';
 import { parseSortByQuery } from './product.util';
+import { StatusCodes } from '../common/httpStatusCode';
 
 const validator = createValidator({ passError: true });
 

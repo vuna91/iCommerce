@@ -35,8 +35,8 @@ export class ActivityController implements RegistrableController {
             req: ValidatedRequest<ActivityCreationRequestSchema>,
             res: Response
           ) => {
-            const result = await this.activityService.create(req.body);
-            res.json({ result });
+            const activity = await this.activityService.create(req.body);
+            res.json({ data: activity });
           }
         )
       );

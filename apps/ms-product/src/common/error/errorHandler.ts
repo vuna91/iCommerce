@@ -2,7 +2,8 @@ import express from 'express';
 import logger from './../logger';
 
 import { AppError } from './appError';
-import { ContainerTypes, ExpressJoiError } from 'express-joi-validation';
+import { ExpressJoiError } from 'express-joi-validation';
+import { ContainerTypes } from '../containerType';
 
 export function errorHandler(
   err: any | ExpressJoiError | AppError,
@@ -10,7 +11,6 @@ export function errorHandler(
   res: express.Response,
   _next: express.NextFunction // eslint-disable-line
 ): void {
-  logger.debug(`err`, err);
   if (err && Object.values(ContainerTypes).includes(err.type)) {
     const e: ExpressJoiError = err;
     res.status(400).json(e);

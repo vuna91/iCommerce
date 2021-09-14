@@ -23,10 +23,12 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/config": "^0.0.39",
     "@types/express": "^4.17.13",
     "@types/hapi__joi": "15.0.4",
     "@types/jest": "^27.0.1",
+    "@types/lodash": "^4.14.172",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^16.9.1",
     "@types/supertest": "^2.0.11",
@@ -49,11 +51,13 @@
   },
   "dependencies": {
     "@hapi/joi": "15.1.1",
+    "axios": "^0.21.4",
     "config": "^3.3.6",
     "express": "^4.17.1",
     "express-joi-validation": "4.0.0",
     "inversify": "^5.1.1",
     "joi-extract-type": "15.0.2",
+    "lodash": "^4.17.21",
     "migrate-mongo": "^8.2.3",
     "mongoose": "^6.0.5",
     "reflect-metadata": "^0.1.13",
