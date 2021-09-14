@@ -4,6 +4,7 @@ import { ProductDocument, ProductModel } from './product.model';
 import {
   Product,
   ProductCreation,
+  ProductDetail,
   ProductFilter,
   ProductSortBy,
 } from './product.type';
@@ -11,6 +12,7 @@ import {
 export interface IProductRepository {
   retrieve(filter: ProductFilter, sortBy: ProductSortBy): Promise<Product[]>;
   create(inputData: ProductCreation): Promise<Product>;
+  findById(productId: string): Promise<ProductDetail | null>;
 }
 
 @injectable()
@@ -43,5 +45,9 @@ export class ProductRepository implements IProductRepository {
 
   public async create(inputData: ProductCreation): Promise<Product> {
     return await ProductModel.create(inputData);
+  }
+
+  public async findById(productId: string): Promise<ProductDetail | null> {
+    return await ProductModel.findById(productId).populate('brand').exec();
   }
 }

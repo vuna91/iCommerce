@@ -9,18 +9,19 @@ export interface Activity {
 }
 
 export interface ActivityCreation {
+  userId: string; // userId will be replaced by id of user get from token
   resourceId?: string;
-  resourceName: ACTIVITY_RESOURCES;
-  action: ACTIVITY_ACTION;
+  resourceName: ActivityResource;
+  action: ActivityAction;
   detail: string;
 }
 
-export enum ACTIVITY_RESOURCES {
+export enum ActivityResource {
   PRODUCT = 'PRODUCT',
   BRAND = 'BRAND',
 }
 
-export enum ACTIVITY_ACTION {
+export enum ActivityAction {
   CREATE = 'CREATE',
   GET_LIST = 'GET_LIST',
   GET_DETAILS = 'GET_DETAILS',

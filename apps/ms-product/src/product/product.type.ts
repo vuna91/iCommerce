@@ -1,3 +1,5 @@
+import { Brand } from '../brand/brand.type';
+
 export interface Product {
   id?: string;
   name: string;
@@ -28,3 +30,13 @@ export interface ProductSortBy {
   key: string;
   value: 'asc' | 'desc' | '';
 }
+
+export type ProductResponse = Omit<Product, 'description'>;
+
+export type ProductDetail = Omit<Product, 'brand'> & {
+  brand: string | Brand;
+};
+
+export type ProductDetailResponse = Omit<Product, 'brand'> & {
+  brand: { id: string; name: string };
+};

@@ -9,6 +9,7 @@ import {
   ActivityService,
   IActivityService,
 } from '../../activity/activity.service';
+import { BrandService, IBrandService } from '../../brand/brand.service';
 import {
   IProductRepository,
   ProductRepository,
@@ -24,6 +25,7 @@ container.bind<RegistrableController>(TYPES.Controller).to(ProductController);
 
 container.bind<IProductService>(TYPES.IProductService).to(ProductService);
 container.bind<IActivityService>(TYPES.IActivityService).to(ActivityService);
+container.bind<IBrandService>(TYPES.IBrandService).to(BrandService);
 
 container
   .bind<IProductRepository>(TYPES.IProductRepository)

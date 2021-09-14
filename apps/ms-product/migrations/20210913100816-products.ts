@@ -1,20 +1,21 @@
 module.exports = {
   async up(db) {
+    const mongoose = require('mongoose');
     const brands = [
       {
-        _id: '613f242d82d0479055e95dcc',
+        _id: new mongoose.Types.ObjectId('613f242d82d0479055e95dcc'),
         name: 'Apple',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        _id: '613f2434a4106ab54c662860',
+        _id: new mongoose.Types.ObjectId('613f2434a4106ab54c662860'),
         name: 'Samsung',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        _id: '613f248203aeedc44ad3a01f',
+        _id: new mongoose.Types.ObjectId('613f248203aeedc44ad3a01f'),
         name: 'Oppo',
         createdAt: new Date(),
         updatedAt: new Date(),

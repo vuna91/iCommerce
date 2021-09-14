@@ -1,5 +1,4 @@
 import express from 'express';
-import logger from './../logger';
 
 import { AppError } from './appError';
 import { ExpressJoiError } from 'express-joi-validation';

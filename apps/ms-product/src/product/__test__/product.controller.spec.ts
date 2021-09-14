@@ -19,10 +19,20 @@ describe('product.controller', () => {
   });
 
   describe('GET /products', () => {
-    it('should call service and return response correctly', async () => {
+    it('should call service to get products and return response correctly', async () => {
       // given
+      const data = {
+        id: '613f7c911de4f98a4bdda55d',
+        name: 'iPhone 12',
+        description: 'the description of iPhone 12',
+        price: 20490000,
+        color: 'black',
+        brand: '613f242d82d0479055e95dcc',
+        createdAt: '2021-09-13T16:30:09.180Z',
+        updatedAt: '2021-09-13T16:30:09.180Z',
+      };
       const productServiceMock = {
-        getProducts: jest.fn().mockResolvedValueOnce([]),
+        getProducts: jest.fn().mockResolvedValueOnce([data]),
       };
       container
         .rebind(TYPES.IProductService)
@@ -30,22 +40,138 @@ describe('product.controller', () => {
 
       // when
       const response = await request(registerApp(TYPES.ProductController)).get(
-        '/products?name=_productName&price=100&sortBy=createdDate:desc'
+        '/products?name=_productName&price=100&sortBy=createdDate:desc&userId=613f7c911de4f98a4bdda55e'
       );
 
       // then
       expect(productServiceMock.getProducts).toBeCalledWith(
+        '613f7c911de4f98a4bdda55e',
         { name: '_productName', price: 100 },
         { key: 'createdDate', value: 'desc' }
       );
       expect(response.status).toBe(200);
-      expect(response.body).toEqual({ data: [] });
+      expect(response.body).toEqual({
+        data: [{ ...data, description: undefined }],
+      });
     });
 
-    it('should return error response if query in invalid', async () => {
+    it('should return error response if query is invalid', async () => {
       // when
       const response = await request(registerApp(TYPES.ProductController)).get(
         '/products?invalidName=_productName'
+      );
+
+      // then
+      expect(response.status).toBe(400);
+      expect(response.body.error.isJoi).toBe(true);
+      expect(response.body.error.name).toBe('ValidationError');
+    });
+  });
+
+  describe('POST /products', () => {
+    it('should call service to create a product and return response correctly', async () => {
+      // given
+      const productServiceMock = {
+        create: jest.fn().mockResolvedValueOnce({}),
+      };
+      container
+        .rebind(TYPES.IProductService)
+        .toConstantValue(productServiceMock);
+
+      // when
+      const response = await request(registerApp(TYPES.ProductController))
+        .post('/products?userId=613f7c911de4f98a4bdda55e')
+        .send({
+          name: 'iPhone 12',
+          price: 20490000,
+          color: 'black',
+          brand: '613f242d82d0479055e95dcc',
+        });
+
+      // then
+      expect(productServiceMock.create).toBeCalledWith(
+        '613f7c911de4f98a4bdda55e',
+        {
+          name: 'iPhone 12',
+          price: 20490000,
+          color: 'black',
+          brand: '613f242d82d0479055e95dcc',
+        }
+      );
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({ data: {} });
+    });
+
+    it('should return error response if request body is invalid', async () => {
+      // when
+      const response = await request(registerApp(TYPES.ProductController))
+        .post('/products?userId=613f7c911de4f98a4bdda55e')
+        .send({});
+
+      // then
+      expect(response.status).toBe(400);
+      expect(response.body.error.isJoi).toBe(true);
+      expect(response.body.error.name).toBe('ValidationError');
+    });
+  });
+
+  describe('GET /products/:_id', () => {
+    it('should call service to get product details and return response correctly', async () => {
+      // given
+      const data = {
+        id: '613f7c911de4f98a4bdda55d',
+        name: 'iPhone 12',
+        description: 'the description of iPhone 12',
+        price: 20490000,
+        color: 'black',
+        brand: {
+          id: '613f242d82d0479055e95dcc',
+          name: 'Apple',
+          createdAt: '2021-09-13T16:30:09.180Z',
+          updatedAt: '2021-09-13T16:30:09.180Z',
+        },
+        createdAt: '2021-09-13T16:30:09.180Z',
+        updatedAt: '2021-09-13T16:30:09.180Z',
+      };
+      const productServiceMock = {
+        getDetails: jest.fn().mockResolvedValueOnce(data),
+      };
+      container
+        .rebind(TYPES.IProductService)
+        .toConstantValue(productServiceMock);
+
+      // when
+      const response = await request(registerApp(TYPES.ProductController)).get(
+        '/products/614073b6bf837048a13e8319?userId=613f7c911de4f98a4bdda55e'
+      );
+
+      // then
+      expect(productServiceMock.getDetails).toBeCalledWith(
+        '613f7c911de4f98a4bdda55e',
+        '614073b6bf837048a13e8319'
+      );
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        data: {
+          id: '613f7c911de4f98a4bdda55d',
+          name: 'iPhone 12',
+          description: 'the description of iPhone 12',
+          price: 20490000,
+          color: 'black',
+          brand: {
+            id: '613f242d82d0479055e95dcc',
+            name: 'Apple',
+          },
+          createdAt: '2021-09-13T16:30:09.180Z',
+          updatedAt: '2021-09-13T16:30:09.180Z',
+        },
+      });
+    });
+
+    it('should return error response if query is invalid', async () => {
+      // when
+      const response = await request(registerApp(TYPES.ProductController)).get(
+        '/products/614073b6bf837048a13e8319'
       );
 
       // then

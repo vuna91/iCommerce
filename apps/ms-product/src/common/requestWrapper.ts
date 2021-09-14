@@ -4,13 +4,13 @@ interface Handler<T, R extends Request> {
   (req: R, res: Response): Promise<T> | T;
 }
 
-interface CustomerRequestHandler<T, R extends Request> {
+interface CustomRequestHandler<T, R extends Request> {
   (req: R, res: Response, next: NextFunction): Promise<void | T>;
 }
 
 export const requestWrapper = <T, R extends Request>(
   handler: Handler<T, R>
-): CustomerRequestHandler<T, R> => {
+): CustomRequestHandler<T, R> => {
   function asyncWrap(request: R, response: Response, next: NextFunction) {
     return Promise.resolve(handler(request, response)).catch(next);
   }
