@@ -17,9 +17,22 @@ services:
     restart: always
     container_name: ms-product
     environment:
-      NODE_ENV: dev
+      NODE_ENV: test
     ports:
-      - 10002:3000
+      - 3000:3000
+    depends_on:
+      - mongodb
+      - ms-activity
+
+  ms-activity:
+    build: ./apps/ms-activity
+    image: ms-activity_image
+    restart: always
+    container_name: ms-activity
+    environment:
+      NODE_ENV: test
+    ports:
+      - 3001:3001
     depends_on:
       - mongodb
 

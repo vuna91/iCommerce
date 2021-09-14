@@ -8,8 +8,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev nodemon src/index.ts",
     "build": "rimraf dist && tsc",
-    "migrate:up": "cross-env NODE_ENV=test migrate-mongo up",
-    "start": "yarn run migrate:up && cross-env NODE_ENV=test node dist/index.js",
+    "start": "cross-env NODE_ENV=test node dist/index.js",
     "format": "prettier . --write",
     "lint": "eslint . --fix",
     "test": "cross-env NODE_ENV=dev jest --verbose",
@@ -54,7 +53,6 @@
     "express-joi-validation": "4.0.0",
     "inversify": "^5.1.1",
     "joi-extract-type": "15.0.2",
-    "migrate-mongo": "^8.2.3",
     "mongoose": "^6.0.5",
     "reflect-metadata": "^0.1.13",
     "swagger-jsdoc": "^6.1.0",

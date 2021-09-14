@@ -1,0 +1,125 @@
+tags:
+  - name: Activities
+    description: API for activity requests
+paths:
+  /activities:
+    get:
+      tags:
+        - Activities
+      summary: Get list of activities
+      description: Get list of activities
+      produces:
+        - application/json
+      responses:
+        200:
+          description: List of activities
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Activity'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/InternalError'
+
+    post:
+      tags:
+        - Activities
+      summary: Create a new activity
+      description: Get a new activity
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Activity object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/ActivityCreation'
+      responses:
+        200:
+          description: Activity added
+          schema:
+            $ref: '#/definitions/Activity'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/InternalError'
+
+definitions:
+  Activity:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 613cf99d3d33610b39961f87
+      userId:
+        type: string
+        example: 614073df8efedc2619cc3acb
+      resourceId:
+        type: string
+        example: 6140a16581d55dc2568c4e41
+      resourceName:
+        type: string
+        example: PRODUCT
+      color:
+        type: string
+        example: black
+      action:
+        type: string
+        example: GET_DETAILS
+      detail:
+        type: string
+        example: Get product details of 6140a16581d55dc2568c4e41
+      createdAt:
+        type: string
+        example: '2021-09-11T18:46:53.961Z'
+      updatedAt:
+        type: string
+        example: '2021-09-11T18:46:53.961Z'
+  ActivityCreation:
+    type: object
+    properties:
+      userId:
+        type: string
+        example: 614073df8efedc2619cc3acb
+      resourceId:
+        type: string
+        example: 6140a16581d55dc2568c4e41
+      resourceName:
+        type: string
+        example: PRODUCT
+      color:
+        type: string
+        example: black
+      action:
+        type: string
+        example: GET_DETAILS
+      detail:
+        type: string
+        example: Get product details of 6140a16581d55dc2568c4e41
+  InternalError:
+    type: object
+    properties:
+      message:
+        type: string
+  BadRequestError:
+    type: object
+    properties:
+      error:
+        type: object
+        properties:
+          message:
+            type: string
+          errorCode:
+            type: string

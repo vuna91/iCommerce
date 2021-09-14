@@ -1,17 +1,14 @@
 import TYPES from '../common/ioc/type';
 
 import { injectable, inject } from 'inversify';
-import { Application, Response } from 'express';
+import { Application, Request, Response } from 'express';
 import { RegistrableController } from './../common/ioc/registerable.controller';
 import { IProductService } from './product.service';
 import { requestWrapper } from '../common/requestWrapper';
 import { createValidator, ValidatedRequest } from 'express-joi-validation';
 import {
   productCreationBodyValidator,
-  productCreationQueryValidator,
   ProductCreationRequestSchema,
-  productGetDetailQueryValidator,
-  ProductGetDetailRequestSchema,
   ProductGetListRequestSchema,
   productGetListValidator,
 } from './product.validator';
@@ -47,8 +44,9 @@ export class ProductController implements RegistrableController {
               color: req.query.color,
             };
             const sortBy: ProductSortBy = parseSortByQuery(req.query.sortBy);
+            const userId = '613f7c911de4f98a4bdda55d'; // userId will be replaced by id of user get from token
             const products = await this.productService.getProducts(
-              req.query.userId || '',
+              userId,
               filer,
               sortBy
             );
@@ -57,36 +55,28 @@ export class ProductController implements RegistrableController {
         )
       )
       .post(
-        validator.query(productCreationQueryValidator),
         validator.body(productCreationBodyValidator),
         requestWrapper(
           async (
             req: ValidatedRequest<ProductCreationRequestSchema>,
             res: Response
           ) => {
-            const result = await this.productService.create(
-              req.query.userId,
-              req.body
-            );
+            const userId = '613f7c911de4f98a4bdda55d'; // userId will be replaced by id of user get from token
+            const result = await this.productService.create(userId, req.body);
             res.json({ data: toProductResponse(result) });
           }
         )
       );
 
     app.route('/products/:_id').get(
-      validator.query(productGetDetailQueryValidator),
-      requestWrapper(
-        async (
-          req: ValidatedRequest<ProductGetDetailRequestSchema>,
-          res: Response
-        ) => {
-          const result = await this.productService.getDetails(
-            req.query.userId,
-            req.params._id
-          );
-          res.json({ data: toProductDetailResponse(result) });
-        }
-      )
+      requestWrapper(async (req: Request, res: Response) => {
+        const userId = '613f7c911de4f98a4bdda55d'; // userId will be replaced by id of user get from token
+        const result = await this.productService.getDetails(
+          userId,
+          req.params._id
+        );
+        res.json({ data: toProductDetailResponse(result) });
+      })
     );
   }
 }

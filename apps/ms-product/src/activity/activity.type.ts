@@ -8,7 +8,7 @@ export interface Activity {
 }
 
 export interface ActivityCreation {
-  userId: string; // userId will be replaced by id of user get from token
+  userId: string;
   resourceId?: string;
   resourceName: ActivityResource;
   action: ActivityAction;
