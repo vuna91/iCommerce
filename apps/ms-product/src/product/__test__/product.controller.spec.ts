@@ -40,12 +40,12 @@ describe('product.controller', () => {
 
       // when
       const response = await request(registerApp(TYPES.ProductController)).get(
-        '/products?name=_productName&price=100&sortBy=createdDate:desc&userId=613f7c911de4f98a4bdda55e'
+        '/products?name=_productName&price=100&sortBy=createdDate:desc'
       );
 
       // then
       expect(productServiceMock.getProducts).toBeCalledWith(
-        '613f7c911de4f98a4bdda55e',
+        '613f7c911de4f98a4bdda55d',
         { name: '_productName', price: 100 },
         { key: 'createdDate', value: 'desc' }
       );
@@ -80,7 +80,7 @@ describe('product.controller', () => {
 
       // when
       const response = await request(registerApp(TYPES.ProductController))
-        .post('/products?userId=613f7c911de4f98a4bdda55e')
+        .post('/products')
         .send({
           name: 'iPhone 12',
           price: 20490000,
@@ -90,7 +90,7 @@ describe('product.controller', () => {
 
       // then
       expect(productServiceMock.create).toBeCalledWith(
-        '613f7c911de4f98a4bdda55e',
+        '613f7c911de4f98a4bdda55d',
         {
           name: 'iPhone 12',
           price: 20490000,
@@ -105,7 +105,7 @@ describe('product.controller', () => {
     it('should return error response if request body is invalid', async () => {
       // when
       const response = await request(registerApp(TYPES.ProductController))
-        .post('/products?userId=613f7c911de4f98a4bdda55e')
+        .post('/products')
         .send({});
 
       // then
@@ -142,12 +142,12 @@ describe('product.controller', () => {
 
       // when
       const response = await request(registerApp(TYPES.ProductController)).get(
-        '/products/614073b6bf837048a13e8319?userId=613f7c911de4f98a4bdda55e'
+        '/products/614073b6bf837048a13e8319'
       );
 
       // then
       expect(productServiceMock.getDetails).toBeCalledWith(
-        '613f7c911de4f98a4bdda55e',
+        '613f7c911de4f98a4bdda55d',
         '614073b6bf837048a13e8319'
       );
       expect(response.status).toBe(200);
@@ -166,18 +166,6 @@ describe('product.controller', () => {
           updatedAt: '2021-09-13T16:30:09.180Z',
         },
       });
-    });
-
-    it('should return error response if query is invalid', async () => {
-      // when
-      const response = await request(registerApp(TYPES.ProductController)).get(
-        '/products/614073b6bf837048a13e8319'
-      );
-
-      // then
-      expect(response.status).toBe(400);
-      expect(response.body.error.isJoi).toBe(true);
-      expect(response.body.error.name).toBe('ValidationError');
     });
   });
 });
