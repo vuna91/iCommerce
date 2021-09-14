@@ -16,3 +16,5 @@ export interface ActivityCreation {
   action: string;
   detail: string;
 }
+
+export type ActivityResponse = Omit<Activity, 'updatedAt'>;

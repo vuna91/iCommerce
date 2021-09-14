@@ -10,6 +10,7 @@ import {
   ActivityCreationRequestSchema,
   activityCreationValidator,
 } from './activity.validator';
+import { toActivityResponse } from './activity.util';
 
 const validator = createValidator({ passError: true });
 
@@ -25,7 +26,7 @@ export class ActivityController implements RegistrableController {
       .get(
         requestWrapper(async (req: Request, res: Response) => {
           const activities = await this.activityService.getActivities();
-          res.json({ data: activities });
+          res.json({ data: activities.map(toActivityResponse) });
         })
       )
       .post(
@@ -36,7 +37,7 @@ export class ActivityController implements RegistrableController {
             res: Response
           ) => {
             const activity = await this.activityService.create(req.body);
-            res.json({ data: activity });
+            res.json({ data: toActivityResponse(activity) });
           }
         )
       );

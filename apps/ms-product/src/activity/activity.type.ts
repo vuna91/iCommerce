@@ -5,7 +5,6 @@ export interface Activity {
   action: string;
   detail: string;
   createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface ActivityCreation {

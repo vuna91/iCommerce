@@ -20,7 +20,7 @@ describe('product.service', () => {
     container.restore();
   });
 
-  describe('retrieve', () => {
+  describe('getProducts', () => {
     it('should call product repository and activity service correctly', async () => {
       // given
       const productRepositoryMock = {
