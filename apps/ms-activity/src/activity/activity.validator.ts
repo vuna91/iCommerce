@@ -4,6 +4,7 @@ import { ValidatedRequestSchema } from 'express-joi-validation';
 import { ContainerTypes } from '../common/containerType';
 
 export const activityCreationValidator = Joi.object({
+  userId: Joi.string().required(),
   resourceId: Joi.string().optional(),
   resourceName: Joi.string().required(),
   action: Joi.string().required(),

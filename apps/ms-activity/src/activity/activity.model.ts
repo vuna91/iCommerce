@@ -6,6 +6,7 @@ export interface ActivityDocument extends Omit<Activity, 'id'>, Document {}
 
 const activitySchema = new Schema<ActivityDocument>(
   {
+    userId: { type: Schema.Types.String, required: true },
     resourceId: Schema.Types.String,
     resourceName: { type: Schema.Types.String, required: true },
     action: { type: Schema.Types.String, required: true },
@@ -28,6 +29,8 @@ const activitySchema = new Schema<ActivityDocument>(
     },
   }
 );
+
+activitySchema.index({ resourceName: 'text', action: 'text' });
 
 export const ActivityModel: Model<ActivityDocument> = model<ActivityDocument>(
   'Activity',

@@ -29,6 +29,9 @@ export const connectDB = (): Promise<void> =>
     });
   });
 
-export function transformDocument(_doc: any, ret: { [key: string]: any }) {
+export function transformDocument(
+  _doc: any,
+  ret: { [key: string]: any }
+): void {
   delete ret._id;
 }

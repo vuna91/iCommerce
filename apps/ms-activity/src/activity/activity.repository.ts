@@ -1,6 +1,5 @@
 import { injectable } from 'inversify';
-import { FilterQuery } from 'mongoose';
-import { ActivityDocument, ActivityModel } from './activity.model';
+import { ActivityModel } from './activity.model';
 import { Activity, ActivityCreation } from './activity.type';
 
 export interface IActivityRepository {
@@ -11,7 +10,7 @@ export interface IActivityRepository {
 @injectable()
 export class ActivityRepository implements IActivityRepository {
   public async retrieve(): Promise<Activity[]> {
-    return await ActivityModel.find({}).exec();
+    return await ActivityModel.find({}).sort({ createdAt: -1 }).exec();
   }
 
   public async create(inputData: ActivityCreation): Promise<Activity> {

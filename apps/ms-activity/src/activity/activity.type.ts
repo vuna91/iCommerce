@@ -1,5 +1,6 @@
 export interface Activity {
   id?: string;
+  userId: string;
   resourceId?: string;
   resourceName: string;
   action: string;
@@ -9,6 +10,7 @@ export interface Activity {
 }
 
 export interface ActivityCreation {
+  userId: string;
   resourceId?: string;
   resourceName: string;
   action: string;
