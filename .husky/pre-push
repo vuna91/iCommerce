@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+cd apps/ms-product && npm run test:cov && cd ../../apps/ms-activity && npm run test:cov
